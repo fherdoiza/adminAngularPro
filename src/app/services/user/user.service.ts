@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import swal from "sweetalert";
 import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { UploadFileService } from "./../upload-file.service";
 
 @Injectable({
   providedIn: "root"
@@ -12,7 +13,11 @@ import { Router } from "@angular/router";
 export class UserService {
   user: User;
   token: string;
-  constructor(public http: HttpClient, public router: Router) {
+  constructor(
+    public http: HttpClient,
+    public router: Router,
+    public uploadFileService: UploadFileService
+  ) {
     this.getStorage();
   }
 
@@ -82,5 +87,32 @@ export class UserService {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     this.router.navigate(["/login"]);
+  }
+
+  updateUser(user: User) {
+    const url =
+      environment.apiRoute + "/user/" + user._id + "?token=" + this.token;
+    return this.http.put(url, user).pipe(
+      map((resp: any) => {
+        this.saveStorage(resp._id, this.token, resp.data);
+        swal("User was updated.", user.nombre, "success");
+
+        return true;
+      })
+    );
+  }
+
+  changeImage(file: File, id: string) {
+    this.uploadFileService
+      .uploadFile(file, "users", id)
+      .then((resp: any) => {
+        console.log(resp);
+        this.user.img = resp.data.img;
+        swal("Imagen Actualizada", this.user.nombre, "success");
+        this.saveStorage(id, this.token, this.user);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 }
