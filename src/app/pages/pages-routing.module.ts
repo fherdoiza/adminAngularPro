@@ -1,5 +1,3 @@
-import { HospitalsComponent } from "./hospitals/hospitals.component";
-import { UsersComponent } from "./users/users.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { PagesComponent } from "./pages.component";
@@ -13,6 +11,9 @@ import { ProfileComponent } from "./profile/profile.component";
 import { PromisesComponent } from "./promises/promises.component";
 import { DoctorsComponent } from "./doctors/doctors.component";
 import { DoctorComponent } from "./doctors/doctor.component";
+import { SearchComponent } from "./search/search.component";
+import { HospitalsComponent } from "./hospitals/hospitals.component";
+import { UsersComponent } from "./users/users.component";
 
 const pagesRoutes: Routes = [
   {
@@ -54,6 +55,11 @@ const pagesRoutes: Routes = [
         path: "profile",
         component: ProfileComponent,
         data: { title: "Perfil de Usuario" }
+      },
+      {
+        path: "search/:query",
+        component: SearchComponent,
+        data: { title: "Search Page" }
       },
       // Admin section
       {
