@@ -94,7 +94,10 @@ export class UserService {
       environment.apiRoute + "/user/" + user._id + "?token=" + this.token;
     return this.http.put(url, user).pipe(
       map((resp: any) => {
-        this.saveStorage(resp._id, this.token, resp.data);
+        if (user._id === this.user._id) {
+          this.saveStorage(resp._id, this.token, resp.data);
+        }
+
         swal("User was updated.", user.nombre, "success");
 
         return true;
@@ -114,5 +117,25 @@ export class UserService {
       .catch(err => {
         console.log(err);
       });
+  }
+
+  getUsers(skip: number = 0) {
+    const url = environment.apiRoute + "/user?skip=" + skip;
+    return this.http.get(url);
+  }
+
+  searchUsers(query: string) {
+    const url = environment.apiRoute + "/search/collection/users/" + query;
+    return this.http.get(url).pipe(
+      map((resp: any) => {
+        return resp.users;
+      })
+    );
+  }
+
+  deleteUser(id: string) {
+    const url = environment.apiRoute + "/user/" + id + "?token=" + this.token;
+
+    return this.http.delete(url);
   }
 }

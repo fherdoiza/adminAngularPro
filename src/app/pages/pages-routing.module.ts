@@ -1,3 +1,4 @@
+import { UsersComponent } from "./users/users.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { PagesComponent } from "./pages.component";
@@ -50,6 +51,12 @@ const pagesRoutes: Routes = [
         path: "profile",
         component: ProfileComponent,
         data: { title: "Perfil de Usuario" }
+      },
+      // Admin section
+      {
+        path: "users",
+        component: UsersComponent,
+        data: { title: "Users Admin" }
       },
       { path: "", redirectTo: "/dashboard", pathMatch: "full" }
     ]

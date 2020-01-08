@@ -1,9 +1,7 @@
-import { swal } from "sweetalert";
 import { UserService } from "./../../services/user/user.service";
 import { Component, OnInit } from "@angular/core";
 import { User } from "src/app/models/user.model";
-import { promise } from "protractor";
-
+import swal from "sweetalert";
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
