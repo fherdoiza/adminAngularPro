@@ -1,0 +1,73 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input type="text" class="form-control" placeholder="Search hospitals"
+          (keyup)="searchHospital(input.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-12">
+    <div class="alert alert-warning text-center">
+      <strong>
+        Cargando
+      </strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+
+</div>
+<div class="row animated fadeIn" *ngIf="!loading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" (click)="createHospital()">
+            <i class="fa fa-plus"></i>
+            Create a Hospital
+          </button>
+        </div>
+        <h3 class="card-title">
+          Hospitales Registrados (<small>{{totalResults}}</small>)
+        </h3>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let hospital of hospitals">
+              <td class="w70">
+                <img [src]="hospital.img | image:'hospital'" alt="picture" class="img-50" style="cursor: pointer;"
+                  (click)="updateImage(hospital)">
+              </td>
+              <td>
+                <input [(ngModel)]="hospital.name" name="name" class="form-control" type="text">
+              </td>
+              <td>
+                <button class="btn btn-primary mr-1" (click)="saveHospital(hospital)">
+                  <i class="fa fa-save"></i>
+                </button>
+                <button class="btn btn-danger" (click)="deleteHospital(hospital)">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

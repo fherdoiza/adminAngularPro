@@ -1,3 +1,4 @@
+import { HospitalsComponent } from "./hospitals/hospitals.component";
 import { UsersComponent } from "./users/users.component";
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
@@ -10,6 +11,8 @@ import { RxjsComponent } from "./rxjs/rxjs.component";
 import { LoginGuard } from "./../services/guards/login.guard";
 import { ProfileComponent } from "./profile/profile.component";
 import { PromisesComponent } from "./promises/promises.component";
+import { DoctorsComponent } from "./doctors/doctors.component";
+import { DoctorComponent } from "./doctors/doctor.component";
 
 const pagesRoutes: Routes = [
   {
@@ -56,7 +59,22 @@ const pagesRoutes: Routes = [
       {
         path: "users",
         component: UsersComponent,
-        data: { title: "Users Admin" }
+        data: { title: "Users - Admin" }
+      },
+      {
+        path: "hospitals",
+        component: HospitalsComponent,
+        data: { title: "Hospitals - Admin" }
+      },
+      {
+        path: "doctors",
+        component: DoctorsComponent,
+        data: { title: "Doctors - Admin" }
+      },
+      {
+        path: "doctor/:id",
+        component: DoctorComponent,
+        data: { title: "Update Doctor" }
       },
       { path: "", redirectTo: "/dashboard", pathMatch: "full" }
     ]

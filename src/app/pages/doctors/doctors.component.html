@@ -1,0 +1,75 @@
+<div class="row animated fadeIn">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <input #input type="text" class="form-control" placeholder="Search doctors"
+          (keyup)="searchDoctors(input.value)">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row animated fadeIn" *ngIf="loading">
+  <div class="col-12">
+    <div class="alert alert-warning text-center">
+      <strong>
+        Cargando
+      </strong>
+      <br>
+      <i class="fa fa-refresh fa-spin fa-2x"></i>
+      <br>
+      <span>Espere por favor</span>
+    </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!loading">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="text-right">
+          <button type="button" class="btn btn-primary" [routerLink]="['/doctor', 'new']">
+            <i class="fa fa-plus"></i>
+            Create a Doctor
+          </button>
+        </div>
+        <h3 class="card-title">
+          Doctores Registrados (<small>{{totalResults}}</small>)
+        </h3>
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Nombre</th>
+              <th>Hospital</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let doctor of doctors">
+              <td class="w70">
+                <img [src]="doctor.img | image:'doctor'" alt="picture" class="img-50" style="cursor: pointer;"
+                  (click)="updateImage(doctor)">
+              </td>
+              <td>
+                {{doctor.name}}
+              </td>
+              <td>
+                {{doctor.hospital?.name}}
+              </td>
+              <td>
+                <button class="btn btn-primary mr-1" [routerLink]="['/doctor', doctor._id]">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-danger" (click)="deleteDoctor(doctor)">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
